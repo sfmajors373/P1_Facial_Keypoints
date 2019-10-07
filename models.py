@@ -21,22 +21,35 @@ class Net(nn.Module):
         # As an example, you've been given a convolutional layer, which you may (but don't have to) change:
         # 1 input image channel (grayscale), 32 output channels/feature maps, 5x5 square convolution kernel
         
+        # 224
         self.conv1 = nn.Conv2d(1, 32, 5)
+        # 224 - 5 + 1 = 220 --> OUT: (32, 220, 220)
         self.pool1 = nn.MaxPool2d(2, 2)
+        # (220 - 2) / 2 +1 = 110 --> OUT: (32, 110, 110)
         self.drop1 = nn.Dropout(p = 0.1)
 
+        # 110
         self.conv2 = nn.Conv2d(32, 64, 3)
+        # 110 - 3 +1 = 108 --> OUT: (64, 108, 108)
         self.pool2 = nn.MaxPool2d(2, 2)
+        # (108 - 2) / 2 +1 = 54 --> OUT: (64, 54, 54)
         self.drop2 = nn.Dropout(p = 0.2)
 
+        # 54
         self.conv3 = nn.Conv2d(64, 128, 3)
+        # 54 - 3 +1 = 52 --> OUT: (128, 52, 52)
         self.pool3 = nn.MaxPool2d(2, 2)
+        # (52 - 2) / 2 + 1 = 26 --> OUT: (128, 26, 26)
         self.drop3 = nn.Dropout(p = 0.3)
 
+        # 26
         self.conv4 = nn.Conv2d(128, 256, 3)
+        # 26 - 3 + 1 = 24 --> OUT: (256, 24, 24)
         self.pool4 = nn.MaxPool2d(2, 2)
+        # (24 - 2) / 2 +1 = 12 --> OUT: (256, 12, 12)
         self.drop4 = nn.Dropout(p = 0.4)
         
+        # First number should be 256 * 12 * 12 but that fails and I am confused.
         self.fc1 = nn.Linear(12, 1024)
         self.fc2 = nn.Linear(1024, 136)
 
